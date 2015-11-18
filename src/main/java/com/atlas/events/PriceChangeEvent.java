@@ -1,13 +1,18 @@
 package com.atlas.events;
 
+import com.atlas.portfolios.PortfolioManager;
+import com.atlas.pricemanager.ChangeEventListner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by schug2 on 11/16/2015.
  */
-@Component
+
 public class PriceChangeEvent implements Event, Serializable {
 
     private String source;
@@ -16,6 +21,11 @@ public class PriceChangeEvent implements Event, Serializable {
 
     private double oldPrice;
     private double newPrice;
+/*
+    @Autowired
+    PortfolioManager portfolioManager;*/
+
+
 
     public PriceChangeEvent() {
     }
@@ -43,6 +53,8 @@ public class PriceChangeEvent implements Event, Serializable {
         this.newPrice = newPrice;
     }
 
+
+
     @Override
     public String getSource() {
         return source;
@@ -65,4 +77,6 @@ public class PriceChangeEvent implements Event, Serializable {
     public EventType getType() {
         return EventType.PRICECHANGE;
     }
+
+
 }

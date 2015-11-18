@@ -2,21 +2,27 @@ package com.atlas.portfolios;
 
 import com.atlas.assets.Holding;
 import com.atlas.investors.Investor;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by schug2 on 11/16/2015.
  */
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SamplePortfolio implements Portfolio {
 
-    List<Holding> holdings = new ArrayList<>();
-    List<Investor> investors = new ArrayList<>();
+    Set<Holding> holdings = new HashSet<>();
+    Set<Investor> investors = new HashSet<>();
 
     private String name;
+    private long Id;
 
 
 
@@ -24,12 +30,13 @@ public class SamplePortfolio implements Portfolio {
 
 
     private double unitsSoldToInvestors ;
+    private double liability;
 
     public SamplePortfolio() {
 
     }
 
-    public SamplePortfolio(List<Holding> holdings, List<Investor> investors, String name, double totalUnits) {
+    public SamplePortfolio(Set<Holding> holdings, Set<Investor> investors, String name, double totalUnits) {
         this.holdings = holdings;
         this.investors = investors;
         this.name = name;
@@ -50,24 +57,21 @@ public class SamplePortfolio implements Portfolio {
         this.baseNav = baseNav;
     }
 
-    @Override
-    public double getUnitsSoldToInvestors() {
-        return unitsSoldToInvestors;
-    }
+
 
     public void setUnitsSoldToInvestors(double unitsSoldToInvestors) {
         this.unitsSoldToInvestors = unitsSoldToInvestors;
     }
 
     @Override
-    public List<Holding> getHoldings() {
-        return new ArrayList<Holding>(holdings);
+    public Set<Holding> getHoldings() {
+        return new HashSet<Holding>(holdings);
     }
 
 
     @Override
-    public List<Investor> getInvestors() {
-        return new ArrayList<Investor>(investors);
+    public Set<Investor> getInvestors() {
+        return new HashSet<>(investors);
     }
 
     @Override
@@ -79,9 +83,7 @@ public class SamplePortfolio implements Portfolio {
     public void addInvestor(Investor investor) {
 
         //calculation logic to increase count of shares for each holding based on amount invested
-        double units =investor.getAmountInvested()/ getNAV();
-        investor.setUnitsSold(units);
-        unitsSoldToInvestors += units;
+
         investors.add(investor);
 
     }
@@ -101,6 +103,16 @@ public class SamplePortfolio implements Portfolio {
     }
 
     @Override
+    public void setId(long id) {
+        this.Id=id;
+    }
+
+    @Override
+    public long getId() {
+        return Id;
+    }
+
+   /* @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
          stringBuffer.append("SamplePortfolio :" +name +"   units sold total:" + unitsSoldToInvestors+" Base Nav "+ baseNav);
@@ -115,5 +127,21 @@ public class SamplePortfolio implements Portfolio {
         });
         stringBuffer.append("Net NAV :"+ getNAV());
         return stringBuffer.toString();
+    }*/
+
+    @Override
+    public String toString() {
+        return "SamplePortfolio{" +
+                "holdings=" + holdings +
+                ", investors=" + investors +
+                ", name='" + name + '\'' +
+                ", baseNav=" + baseNav +
+                ", unitsSoldToInvestors=" + unitsSoldToInvestors +
+                ", NAV="+ getNAV()+
+                '}';
+    }
+
+    public void setLiability(double liability) {
+        this.liability = liability;
     }
 }

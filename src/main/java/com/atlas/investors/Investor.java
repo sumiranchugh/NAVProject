@@ -16,6 +16,19 @@ public class Investor {
 
     private double amountInvested;
 
+    private String name;
+    private String desc;
+
+    private long Id;
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
     private Date startDate;
 
     private Date endDate;
@@ -40,6 +53,22 @@ public class Investor {
         this.startDate = startDate;
         this.endDate = endDate;
         this.plan = planId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public double getAmountInvested() {
@@ -72,5 +101,14 @@ public class Investor {
 
     public void setPlanId(plans planId) {
         this.plan = planId;
+    }
+
+    @Override
+    public String toString() {
+        return "Investor{" +
+                "amountInvested=" + amountInvested +
+                ", startDate=" + startDate +
+                ", fundUnits=" + fundUnits +
+                '}';
     }
 }

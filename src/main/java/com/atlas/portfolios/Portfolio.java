@@ -32,16 +32,24 @@ public interface Portfolio extends Serializable{
 
         if(getUnitsSoldToInvestors()==0)
             return getBaseNav();
-        double assetsWorth = getHoldings().stream().mapToDouble((p) -> p.getWorth()).sum();
+        double assetsWorth = getAssetValue();
         double liabilities = getLiabilities();
 
         return (assetsWorth - liabilities) / getUnitsSoldToInvestors();
 
     }
 
+    default double getAssetValue(){
+     return   getHoldings().stream().mapToDouble((p) -> p.getWorth()).sum();
+    }
+
     default  double getPurchasePrice(){
 
         return getHoldings().stream().mapToDouble((p)->p.getCostPrice()).sum();
+    }
+
+    default double getCost() {
+        return getHoldings().stream().mapToDouble((p)->p.getCostPrice()*p.getCountShares()).sum();
     }
 
     Double getBaseNav();
@@ -52,6 +60,7 @@ public interface Portfolio extends Serializable{
     void setId(long id);
 
      long getId();
+
 
 
 }

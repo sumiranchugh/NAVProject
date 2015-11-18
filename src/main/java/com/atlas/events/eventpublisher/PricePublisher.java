@@ -2,7 +2,9 @@ package com.atlas.events.eventpublisher;
 
 import com.atlas.assets.Holding;
 import com.atlas.events.PriceChangeEvent;
+import com.atlas.portfolios.PortfolioManager;
 import com.atlas.pricemanager.ChangeEventListner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -18,7 +20,8 @@ public class PricePublisher implements Publisher<Holding,PriceChangeEvent> {
 
     private  PriceChangeEvent e;
 
-
+    @Autowired
+    private PortfolioManager portfolioManager;
 
 
     @Override
@@ -32,7 +35,7 @@ public class PricePublisher implements Publisher<Holding,PriceChangeEvent> {
         set.forEach((p)->
                         p.processChange(e)
         );
-        //   portfolioManager.getPortfolioSummary("Portfolio 1");
+           portfolioManager.getPortfolioSummary("P1");
     }
 
     @Override

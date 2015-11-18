@@ -136,10 +136,17 @@ public class SamplePortfolio implements Portfolio {
                 ", investors=" + investors +
                 ", name='" + name + '\'' +
                 ", baseNav=" + baseNav +
-                ", unitsSoldToInvestors=" + unitsSoldToInvestors +
+                ", unitsSoldToInvestors=" + getUnitsSoldToInvestors() +
                 ", NAV="+ getNAV()+
+                ",cost="+ getCost()+
+                ",assets"+getAssetValue()+
                 '}';
     }
+
+
+
+
+
 
     public void setLiability(double liability) {
         this.liability = liability;
